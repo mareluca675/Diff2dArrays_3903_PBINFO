@@ -1,0 +1,50 @@
+#include <iostream>
+
+using namespace std;
+
+int mat[501][501], smen[501][501], A[501][501], n, m, l1, c1, l2, c2, add, i, j, k;
+
+int main()
+{
+    cin >> n;
+    
+    for(i = 1; i <= n; i ++)
+    {
+        for(j = 1; j <= n; j ++)
+        {
+            cin >> mat[i][j];
+        }
+    }
+    
+    cin >> m;
+    
+    for(i = 1; i <= m; i ++)
+    {
+        cin >> l1 >> c1 >> l2 >> c2 >> add;
+        
+        smen[l1][c1] += add;
+        smen[l1][c2 + 1] -= add;
+        smen[l2 + 1][c1] -= add;
+        smen[l2 + 1][c2 + 1] += add;
+    }
+    
+    for(i = 1; i <= n; i ++)
+    {
+        for(j = 1; j <= n; j ++)
+        {
+            A[i][j] = smen[i][j] + A[i][j - 1] + A[i - 1][j] - A[i - 1][j - 1];
+        }
+    }
+    
+    for(i = 1; i <= n; i ++)
+    {
+        for(j = 1; j <= n; j ++)
+        {
+            cout << mat[i][j] + A[i][j] << ' ';
+        }
+        
+        cout << '\n';
+    }
+
+    return 0;
+}
